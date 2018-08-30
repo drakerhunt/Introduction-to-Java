@@ -11,12 +11,16 @@ import javafx.geometry.*;
 public class Exercise14_27 extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		ClockPane clock = new ClockPane().setCurrentTime();
+		ClockPane clock = new ClockPane();
+		String timeString = clock.getHour() + ":" + clock.getMinute() + ":" + clock.getSecond();
+		Label lblCurrentTime = new Label(timeString);
 		
-		Pane pane = new Pane();
+		BorderPane pane = new BorderPane();
 		pane.setCenter(clock);
+		pane.setBottom(lblCurrentTime);
+		BorderPane.setAlignment(lblCurrentTime, Pos.TOP_CENTER);
 		
-		Scene scene = new Scene(pane, 300, 300);
+		Scene scene = new Scene(pane, 400, 400);
 		primaryStage.setTitle("14-27");
 		primaryStage.setScene(scene);
 		primaryStage.show();
