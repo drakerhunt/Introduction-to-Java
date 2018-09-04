@@ -7,11 +7,18 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.geometry.*;
+import java.util.*;
 
 public class Exercise14_27 extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		ClockPane clock = new ClockPane();
+		Random ran = new Random();
+		int randomHour = ran.nextInt(11);
+		int randomMin = ran.nextInt(30);
+		System.out.println(randomHour);
+		System.out.println(randomMin);
+		ClockPane clock = new ClockPane(randomHour, randomMin, 0);
+		clock.setSecondHandVisable(false);
 		String timeString = clock.getHour() + ":" + clock.getMinute() + ":" + clock.getSecond();
 		Label lblCurrentTime = new Label(timeString);
 		

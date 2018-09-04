@@ -10,6 +10,7 @@ public class ClockPane extends Pane {
 	private int hour;
 	private int minute;
 	private int second;
+	boolean hourHandVisable, minuteHandVisable, secondHandVisable = true;
 	
 	private double w = 250, h = 250;
 	
@@ -21,6 +22,33 @@ public class ClockPane extends Pane {
 		this.hour = hour;
 		this.minute = minute;
 		this.second = second;
+		paintClock();
+	}
+	
+	public boolean getHourHandVisable() {
+		return hourHandVisable;
+	}
+	
+	public void setHourHandVisable(boolean visable) {
+		this.hourHandVisable = visable;
+		paintClock();
+	}
+	
+	public boolean getMinuteHandVisable() {
+		return minuteHandVisable;
+	}
+	
+	public void setMinuteHandVisable(boolean visable) {
+		this.minuteHandVisable = visable;
+		paintClock();
+	}
+	
+	public boolean getSecondHandVisable() {
+		return secondHandVisable;
+	}
+	
+	public void setSecondHandVisable(boolean visable) {
+		this.secondHandVisable = visable;
 		paintClock();
 	}
 	
@@ -117,10 +145,9 @@ public class ClockPane extends Pane {
 		//for (int i = 0, i < 12, i++) {
 		double hourHashX = centerX + hLength * Math.sin((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
 		double hourHashY = centerY - hLength * Math.cos((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
-		Line hourLine = new Line(centerX, centerY, hourHashX, hourHashY);
 		//}
 		
 		getChildren().clear();
-		getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine, hourHash, hourLine);
+		getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine, hourHash);
 	}
 }
