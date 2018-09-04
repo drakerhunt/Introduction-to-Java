@@ -113,11 +113,14 @@ public class ClockPane extends Pane {
 		Line hLine = new Line (centerX, centerY, hourX, hourY);
 		hLine.setStroke(Color.GREEN);
 		
-		//for (int i = 0, i < 12, i++) {
 		Line hourHash = new Line(centerX, centerY - clockRadius, centerX, centerY - clockRadius + 10);
+		//for (int i = 0, i < 12, i++) {
+		double hourHashX = centerX + hLength * Math.sin((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
+		double hourHashY = centerY - hLength * Math.cos((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
+		Line hourLine = new Line(centerX, centerY, hourHashX, hourHashY);
 		//}
 		
 		getChildren().clear();
-		getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine, hourHash);
+		getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine, hourHash, hourLine);
 	}
 }
