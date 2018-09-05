@@ -14,9 +14,11 @@ public class Exercise14_27 extends Application {
 	public void start(Stage primaryStage) {
 		Random ran = new Random();
 		int randomHour = ran.nextInt(11);
-		int randomMin = ran.nextInt(30);
+		int randomMin = ran.nextInt(2);
 		System.out.println(randomHour);
 		System.out.println(randomMin);
+		if (randomMin == 1)
+			randomMin = 30;
 		ClockPane clock = new ClockPane(randomHour, randomMin, 0);
 		clock.setSecondHandVisable(false);
 		String timeString = clock.getHour() + ":" + clock.getMinute() + ":" + clock.getSecond();
