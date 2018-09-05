@@ -1,4 +1,4 @@
-public abstract class GeometricObject implements Colorable {
+public abstract class GeometricObject {
 	
 	public double area;
 	

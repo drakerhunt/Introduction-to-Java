@@ -13,20 +13,21 @@ public class Rational extends Number implements Comparable<Rational> {
 	
 	public Rational(BigInteger numerator, BigInteger denominator) {
 		BigInteger gcd = gcd(numerator, denominator);
-		this.numerator = ((denominator > 0)) ? 1 : -1 * numerator / gcd;
-		this.denominator = Math.abs(denominator) / gcd;
-	}
+		this.numerator = ((denominator.compareTo(BigInteger.ZERO) > 0) ? BigInteger.ONE : new BigInteger("-1")) .multiply(numerator).divide(gcd);
+		this.denominator = ((denominator.compareTo(BigInteger.ZERO) > 0) ? denominator : denominator.multiply(new BigInteger("-1"))) .divide(gcd);
+	}	
 	
 	private static BigInteger gcd(BigInteger n, BigInteger d) {
-		BigInteger n1 = Math.abs(n);
-		BigInteger n2 = Math.abs(d);
-		int gcd = 1;
+		BigInteger n1 = n.abs();
+		BigInteger n2 = d.abs();
+		int gcdInt = 1;
 		
-		for (int k = 1; k <= n1 && k <= n2; k++) {
-			if (n1 % k == 0 && n2 % k == 0) {
-				gcd = k;
+		for (int k = 1; k <= n1.intValue() && k <= n2.intValue(); k++) {
+			if (n1.intValue() % k == 0 && n2.intValue() % k == 0) {
+				gcdInt = k;
 			}
 		}
+		BigInteger gcd = new BigInteger(gcdInt + "");
 		return gcd;
 	}
 	
@@ -39,32 +40,32 @@ public class Rational extends Number implements Comparable<Rational> {
 	}
 	
 	public Rational add(Rational secondRational) {
-		BigInteger n = numerator * secondRational.getDenominator() + denominator * secondRational.getNumerator();
-		BigInteger d = denominator * secondRational.getDenominator();
+		BigInteger n = numerator.multiply(secondRational.getDenominator()).add(denominator).multiply(secondRational.getNumerator());
+		BigInteger d = denominator.multiply(secondRational.getDenominator());
 		return new Rational(n, d);
 	}
 	
 	public Rational subtract(Rational secondRational) {
-		BigInteger n = numerator * secondRational.getDenominator() - denominator * secondRational.getNumerator();
-		BigInteger d = denominator * secondRational.getDenominator();
+		BigInteger n = numerator.multiply(secondRational.getDenominator()).subtract(denominator).multiply(secondRational.getNumerator());
+		BigInteger d = denominator.multiply(secondRational.getDenominator());
 		return new Rational(n, d);
 	}
 	
 	public Rational multiply(Rational secondRational) {
-		BigInteger n = numerator * secondRational.getNumerator();
-		BigInteger d = denominator * secondRational.getDenominator();
+		BigInteger n = numerator.multiply(secondRational.getNumerator());
+		BigInteger d = denominator.multiply(secondRational.getDenominator());
 		return new Rational(n, d);
 	}
 	
 	public Rational divide(Rational secondRational) {
-		BigInteger n = numerator * secondRational.getDenominator();
-		BigInteger d = denominator * secondRational.numerator;
+		BigInteger n = numerator.multiply(secondRational.getDenominator());
+		BigInteger d = denominator.multiply(secondRational.numerator);
 		return new Rational(n, d);
 	}
 	
 	@Override
 	public String toString() {
-		if (denominator == 1) {
+		if (denominator.compareTo(BigInteger.ONE) == 0) {
 			return numerator + "";
 		}
 		else {
@@ -74,7 +75,7 @@ public class Rational extends Number implements Comparable<Rational> {
 	
 	@Override
 	public boolean equals(Object other) {
-		if ((this.subtract((Rational)(other))).getNumerator() == 0)
+		if ((this.subtract((Rational)(other))).getNumerator().compareTo(BigInteger.ZERO) == 0)
 			return true;
 		else 
 			return false;
@@ -92,7 +93,7 @@ public class Rational extends Number implements Comparable<Rational> {
 	
 	@Override
 	public double doubleValue() {
-		return numerator * 1.0 / denominator;
+		return (numerator.doubleValue() / denominator.doubleValue());
 	}
 	
 	@Override
@@ -102,9 +103,9 @@ public class Rational extends Number implements Comparable<Rational> {
 	
 	@Override
 	public int compareTo(Rational o) {
-		if (this.subtract(o).getNumerator() > 0)
+		if (this.subtract(o).getNumerator().compareTo(BigInteger.ZERO) > 0)
 			return 1;
-		else if (this.subtract(o).getNumerator() < 0)
+		else if (this.subtract(o).getNumerator().compareTo(BigInteger.ZERO) < 0)
 			return -1;
 		else 
 			return 0;

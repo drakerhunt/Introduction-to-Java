@@ -19,6 +19,14 @@ public class Octagon extends GeometricObject implements Comparable<GeometricObje
 	public double getSideLength() {
 		return this.sideLength;
 	}
+	public double getPerimeter() {
+		return perimeter;
+	}
+	
+	@Override
+	public double getArea() {
+		return area;
+	}
 	
 	@Override
 	public String toString() {
