@@ -124,14 +124,14 @@ public class ClockPane extends Pane {
 		Text t4 = new Text(centerX - 3, centerY + clockRadius - 3, "6");
 		
 		//Second Hand
-		double sLength = clockRadius * .8;
+		double sLength = clockRadius * .95;
 		double secondX = centerX + sLength * Math.sin(second * (2 * Math.PI / 60));
 		double secondY = centerY - sLength * Math.cos(second * (2 * Math.PI / 60));
 		Line sLine = new Line(centerX, centerY, secondX, secondY);
 		sLine.setStroke(Color.RED);
 		
 		//Minute Hand
-		double mLength = clockRadius * .65;
+		double mLength = clockRadius * .8;
 		double minuteX = centerX + mLength * Math.sin(minute * (2 * Math.PI / 60));
 		double minuteY = centerY - mLength * Math.cos(minute * (2 * Math.PI / 60));
 		Line mLine = new Line (centerX, centerY, minuteX, minuteY);
@@ -144,22 +144,16 @@ public class ClockPane extends Pane {
 		Line hLine = new Line (centerX, centerY, hourX, hourY);
 		hLine.setStroke(Color.GREEN);
 		
-		Line hourHash = new Line(centerX, centerY - clockRadius, centerX, centerY - clockRadius + 10);
-		//for (int i = 0, i < 12, i++) {
-		double hourHashX = centerX + hLength * Math.sin((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
-		double hourHashY = centerY - hLength * Math.cos((1 % 12 + minute / 60.0) * (2 * Math.PI / 12));
-		//}
-		
 		getChildren().clear();
+		getChildren().addAll(circle, t1, t2, t3, t4);
 		if (getHourHandVisable()) {
-			getChildren().addAll(hLine);
+			getChildren().add(hLine);
 		}
 		if (getMinuteHandVisable()) {
-			getChildren().addAll(mLine);
+			getChildren().add(mLine);
 		}
 		if (getSecondHandVisable()) {
-			getChildren().addAll(sLine);
+			getChildren().add(sLine);
 		}
-		getChildren().addAll(circle, t1, t2, t3, t4, hourHash);
 	}
 }
