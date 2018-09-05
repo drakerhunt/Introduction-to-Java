@@ -22,6 +22,9 @@ public class ClockPane extends Pane {
 		this.hour = hour;
 		this.minute = minute;
 		this.second = second;
+		hourHandVisable = true;
+		minuteHandVisable = true;
+		secondHandVisable = true;
 		paintClock();
 	}
 	
@@ -148,6 +151,15 @@ public class ClockPane extends Pane {
 		//}
 		
 		getChildren().clear();
-		getChildren().addAll(circle, t1, t2, t3, t4, sLine, mLine, hLine, hourHash);
+		if (getHourHandVisable()) {
+			getChildren().addAll(hLine);
+		}
+		if (getMinuteHandVisable()) {
+			getChildren().addAll(mLine);
+		}
+		if (getSecondHandVisable()) {
+			getChildren().addAll(sLine);
+		}
+		getChildren().addAll(circle, t1, t2, t3, t4, hourHash);
 	}
 }
