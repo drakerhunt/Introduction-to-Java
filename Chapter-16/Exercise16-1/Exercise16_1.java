@@ -44,38 +44,66 @@ public class Exercise16_1 extends Application {
 		Button btLeft = new Button("<=");
 		Button btRight = new Button("=>");
 		hBButtons.getChildren().addAll(btLeft, btRight);
-				
-		Label label = new Label("Programming is fun");
-		label.setFont(Font.font("Ariel", 20));
 		
-		vB.getChildren().addAll(hBRadioButtons, label, hBButtons);
+		HBox pane = new HBox();
+		Text t = new Text("Programming is fun");
+		t.setFont(Font.font("Ariel", 50));
+		t.setStrokeWidth(2);
+		t.setStroke(Color.BLACK);
+		t.setText(t.getText());
+		pane.getChildren().add(t);
+		pane.setAlignment(Pos.CENTER);
+		
+		vB.getChildren().addAll(hBRadioButtons, pane, hBButtons);
 		hBButtons.setAlignment(Pos.BOTTOM_CENTER);
 		hBRadioButtons.setAlignment(Pos.TOP_CENTER);
+		t.setTextAlignment(TextAlignment.LEFT);
 		
-		Scene scene = new Scene(vB, 350, 350);
+		Scene scene = new Scene(vB, 1000, 500);
 		primaryStage.setTitle("Exercise 16-1");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		btRight.setOnAction(e -> {
+			if (pane.getAlignment() != Pos.CENTER_RIGHT) {
+				if (pane.getAlignment() == Pos.CENTER_LEFT) {
+					pane.setAlignment(Pos.CENTER);
+				}
+				else if (pane.getAlignment() == Pos.CENTER) {
+					pane.setAlignment(Pos.CENTER_RIGHT);
+				}
+			}
+		});
+		btLeft.setOnAction(e -> {
+			if (pane.getAlignment() != Pos.CENTER_LEFT) {
+				if (pane.getAlignment() == Pos.CENTER_RIGHT) {
+					pane.setAlignment(Pos.CENTER);
+				}
+				else {
+					pane.setAlignment(Pos.CENTER_LEFT);
+				}
+			}
+		});
+		
 		rbRed.setOnAction(e -> {
 		if (rbRed.isSelected())
-			label.setTextFill(Color.RED);
+			t.setFill(Color.RED);
 		});
 		rbYellow.setOnAction(e -> {
 		if (rbYellow.isSelected())
-			label.setTextFill(Color.YELLOW);
+			t.setFill(Color.YELLOW);
 		});
 		rbBlack.setOnAction(e -> {
 		if (rbBlack.isSelected()) 
-			label.setTextFill(Color.BLACK);
+			t.setFill(Color.BLACK);
 		});
 		rbOrange.setOnAction(e -> {
 		if (rbOrange.isSelected()) 
-			label.setTextFill(Color.ORANGE);
+			t.setFill(Color.ORANGE);
 		});
 		rbGreen.setOnAction(e -> {
 		if (rbGreen.isSelected())
-			label.setTextFill(Color.GREEN);
+			t.setFill(Color.GREEN);
 		});
 	}
 	
