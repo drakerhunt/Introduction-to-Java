@@ -21,7 +21,6 @@ public class Chapter14_15 extends Application {
 	public void start(Stage primaryStage) {
 	
 	StackPane pane = new StackPane();
-	//Pane pane2 = new Pane();
 	Scene scene = new Scene(pane, 350, 350);
 	
 	Polygon oct = new Polygon();
