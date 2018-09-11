@@ -17,8 +17,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Labeled;
 import javafx.collections.*;
 import javafx.scene.image.ImageView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class Exercise16_15 extends Application {
 	
@@ -30,10 +33,13 @@ public class Exercise16_15 extends Application {
 		VBox vB = new VBox();
 		vB.setPadding(new Insets(10, 10, 10, 10));
 		HBox hB = new HBox();
+		hB.setPadding(new Insets(0, 100, 100, 100));
 		
-		cbo.getItems().addAll("TOP", "RIGHT", "LEFT", "BOTTOM", "MIDDLE");
-		cbo.setPrefWidth(100);
+		cbo.getItems().addAll("TOP", "RIGHT", "LEFT", "BOTTOM");
+		cbo.setPrefWidth(150);
 		cbo.setValue("TOP");
+		String pos = cbo.getValue().toString();
+		pos.equals(cbo.getValue().toString());
 		
 		Text text = new Text("Position"); 
 		text.setFill(Color.BLACK);
@@ -43,18 +49,14 @@ public class Exercise16_15 extends Application {
 		BorderPane paneForTextField = new BorderPane();
 		paneForTextField.setStyle("-fx-border-color: black");
 		paneForTextField.setLeft(new Label("Graphic Text Gap"));
-		TextField tf = new TextField("Enter Here");
+		TextField tf = new TextField("0");
 		
-		GridPane pane = new GridPane();
-		Text text3 = new Text("Dr. Pepper");
+		BorderPane pane = new BorderPane();
 		ImageView image = new ImageView("DrPepper.jpg");
+		Label label = new Label("Dr. Pepper", image);
 		image.setFitHeight(50);
 		image.setFitWidth(50);
-		pane.getColumnConstraints().add(new ColumnConstraints(133));
-		pane.getRowConstraints().add(new RowConstraints(170));
-		pane.setConstraints(image, 3, 3);
-		pane.setConstraints(text3, 2, 2);
-		pane.getChildren().addAll(image, text3);
+		pane.setCenter(label);
 		
 		hB.getChildren().addAll(text, cbo, text2, tf);
 		vB.getChildren().addAll(hB, pane);
@@ -64,9 +66,28 @@ public class Exercise16_15 extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		cbo.addListener(ov -> {
-			pane.setConstraints(image, 1, 1);
+		cbo.valueProperty().addListener(new ChangeListener<String>() {
+			@Override public void changed(ObservableValue ov, String t, String i) {
+				System.out.println(i);
+				if (i == "TOP") {
+					label.setContentDisplay(ContentDisplay.TOP);
+				}
+				else if (i == "RIGHT") {
+					label.setContentDisplay(ContentDisplay.RIGHT);
+				}
+				else if (i == "LEFT") {
+					label.setContentDisplay(ContentDisplay.LEFT);
+				}
+				else if (i == "BOTTOM") {
+					label.setContentDisplay(ContentDisplay.BOTTOM);
+				}
+			}
+});
+		tf.setOnAction(e -> {
+			label.setGraphicTextGap(Double.parseDouble(tf.getText()));
 		});
+		
+		System.out.println(pos);
 	}
 	
 	public static void main(String[] args) {
