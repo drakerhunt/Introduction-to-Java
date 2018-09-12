@@ -22,29 +22,55 @@ import javafx.collections.*;
 import javafx.scene.image.ImageView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.util.Duration;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import java.util.Scanner;
+import java.util.Timer;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
 
-public class Exercise16_21 extends Application {
+public class Exercise16_21 extends Application { 
+	TextField tf = new TextField("0");
+	
+	Timeline animation = new Timeline(
+		new KeyFrame(Duration.millis(1000), e -> {
+			int temp = Integer.parseInt(tf.getText()) - 1;
+			tf.setText(temp + "");
+			if (temp == 0) {
+				stopAPlayM();
+			}
+		}));
+		
+	Media media = new Media("https://liveexample.pearsoncmg.com/common/audio/anthem/anthem0.mp3");
+	MediaPlayer mediaPlayer = new MediaPlayer(media);
+	
+	public void stopAPlayM() {
+		animation.stop();
+		mediaPlayer.play();
+	}
+		
 	@Override
 	public void start(Stage primaryStage) {
 		Pane pane = new Pane();
 		
 		BorderPane paneForTextField = new BorderPane();
 		paneForTextField.setStyle("-fx-border-color: black");
-		TextField tf = new TextField("0");
+		tf.setEditable(true);
 		tf.setFont(Font.font("Ariel", 50));
 		tf.setAlignment(Pos.CENTER);
+		
+		mediaPlayer.setCycleCount(Timeline.INDEFINITE);
+		
+		animation.setCycleCount(Timeline.INDEFINITE);
+		tf.setOnAction(ov -> {
+			animation.play();
+		});
 		
 		Scene scene = new Scene(tf, 200, 200);
 		primaryStage.setTitle("Exercise16_21");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		tf.textProperty().addListener(ov -> {
-			while (tf.getValue() != 0) {
-			tf.setText(tf.getValue() - 1);
-			}
-		});
 	}
 	
 	public static void main(String[] args) {
