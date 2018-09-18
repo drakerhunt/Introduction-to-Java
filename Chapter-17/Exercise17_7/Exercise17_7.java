@@ -4,7 +4,7 @@ import java.util.ArrayList;
 class Exercise17_7 {
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		
-		ArrayList<Loan> list = new ArrayList();
+		ArrayList<Loan> list = new ArrayList<Loan>();
 		
 		//Create Loan Objects
 		Loan l1 = new Loan(1, 5, 1000);
